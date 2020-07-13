@@ -111,9 +111,81 @@ public class Bot {
 
         }
     }
-    public  void sendAnswer(int questid) throws IOException {
+
+    public void postQuestion(String title, String desc, String[] tags, String[] polls ) throws IOException {
+
+        URL url = new URL("https://www.gutefrage.net/nmms-api/questions");
+        String msg = "{\"title\":\"" + title + "?\",\"body\":\"<p>"  + desc +"</p>\",\"tags\":[";
+        for (String tag : tags) {
+            if(!tags[tags.length-1].equals(tag)) {
+                System.out.println("1" + tag);
+                msg += "\"" + tag + "\",";
+            }else{
+                System.out.println("2" + tag);
+                msg += "\"" + tag + "\"";
+            }
+        }
+        msg+= "]";
+        msg += ",\"poll_choices\":[";
+        for (String poll : polls) {
+            if(polls[polls.length-1].equals(poll)) {
+                msg += "\"" + poll + "\"";
+
+            }else{
+                msg += "\"" + poll + "\"" + ",";
+
+            }
+        }
+        msg += "],\"subscribe\":true,\"images\":[]}";
+        System.out.println(msg);
+        URLConnection con = url.openConnection();
+
+        //  con.setRequestMethod("POST");
+        con.setRequestProperty("authority", "www.gutefrage.net");
+        con.setRequestProperty("method", "POST");
+        con.setRequestProperty("path", " /nmms-api/questions");
+        con.setRequestProperty("scheme", "https");
+        con.setRequestProperty("origin", "https://www.gutefrage.net");
+        con.setRequestProperty("sec-fetch-dest", "empty");
+        con.setRequestProperty("sec-fetch-mode", "cors");
+        con.setRequestProperty("cookie" , cookies);
+        con.setRequestProperty("sec-fetch-site", "same-origin");
+        con.setRequestProperty("accept", "*/*");
+        con.setRequestProperty("accept-language", "e,en-US;q=0.9,en;q=0.8,de-DE;q=0.7,ro;q=0.6 ");
+        con.setRequestProperty("cache-control", "no-cache ");
+        con.setRequestProperty("content-length", "170");
+        con.setRequestProperty("content-type", "application/json ");
+        con.setRequestProperty("referer", "https://www.gutefrage.net/frage_hinzufuegen");
+        con.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
+        con.setRequestProperty("x-api-key", "dfdza43a-8560-4641-b316-ff928232734c");
+        con.setRequestProperty("x-client-id", "net.gutefrage.nmms.desktop");
+        con.setRequestProperty("x-client-id", "net.gutefrage.nmms.desktop");
+        con.setRequestProperty("x-csrf-token", "null");
+
+
+        con.setDoOutput(true);
+        con.getOutputStream().write(msg.getBytes());
+
+        Scanner sc = new Scanner(con.getInputStream());
+        String line;
+        String resp = new String();
+        BufferedReader reader = new BufferedReader(new
+                InputStreamReader(con.getInputStream()));
+        while ((line = reader.readLine()) != null) {
+
+            resp += line;
+
+        }
+        System.out.println(resp);
+
+
+    }
+
+
+
+    public  void sendAnswer(String ans,int questid) throws IOException {
         URL url = new URL("https://www.gutefrage.net/graphql");
-        String msg = "{\"query\":\"\\n        \\n    mutation CreateAnswer($answer: NewAnswer!) {\\n      answer {\\n        createAnswer: createAnswer(answer: $answer) {\\n          id\\n        }\\n      }\\n    }\\n  \\n\\n        \\n      \",\"variables\":{\"answer\":{\"questionId\":" + questid + ",\"body\":\"<p>sehr warm</p>\",\"images\":[]}}}";
+        String msg = "{\"query\":\"\\n        \\n    mutation CreateAnswer($answer: NewAnswer!) {\\n      answer {\\n        createAnswer: createAnswer(answer: $answer) {\\n          id\\n        }\\n      }\\n    }\\n  \\n\\n        \\n      \",\"variables\":{\"answer\":{\"questionId\":" + questid + ",\"body\":\"<p>" + ans + "</p>\",\"images\":[]}}}";
         URLConnection con = url.openConnection();
 
         //  con.setRequestMethod("POST");
@@ -129,7 +201,7 @@ public class Bot {
         con.setRequestProperty("accept", "*/*");
         con.setRequestProperty("accept-language", "e,en-US;q=0.9,en;q=0.8,de-DE;q=0.7,ro;q=0.6 ");
         con.setRequestProperty("cache-control", "no-cache ");
-        con.setRequestProperty("content-length", "365");
+        con.setRequestProperty("content-length", String.valueOf(msg.length()));
         con.setRequestProperty("content-type", "application/json ");
         con.setRequestProperty("referer", " https://www.gutefrage.net/");
         con.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");

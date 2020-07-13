@@ -34,10 +34,12 @@ public class Service {
       con.setDoOutput(true);
         System.out.println(con.getResponseCode());
       Scanner sc = new Scanner(con.getInputStream());
+      String resp  ="";
      while (sc.hasNext()){
-         System.out.println(sc.next());
+         resp += sc.next();
      }
 
+    id = Integer.parseInt(resp.trim().replace(" ", "").replace("\n", "").split("<articleid=")[1].split("Question-")[1].split("\"data-ref")[0]);
       return id;
   }
 }
