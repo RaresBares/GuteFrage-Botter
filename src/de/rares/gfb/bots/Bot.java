@@ -6,6 +6,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
@@ -138,10 +139,11 @@ public class Bot {
             }
         }
         msg += "],\"subscribe\":true,\"images\":[]}";
+        msg = "{\"title\":\"Denkt ihr, dass jeder Mensch einen Freund finden wird?\",\"body\":\"<p>Frage steht oben</p>\",\"tags\":[\"Leben\",\"Philosophie\"],\"poll_choices\":[],\"subscribe\":true,\"images\":[]}";
         System.out.println(msg);
-        URLConnection con = url.openConnection();
+        HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
-        // con.setRequestMethod("POST");
+     con.setRequestMethod("POST");
         con.setRequestProperty("authority", "www.gutefrage.net");
         con.setRequestProperty("method", "POST");
         con.setRequestProperty("path", " /nmms-api/questions");
@@ -149,13 +151,13 @@ public class Bot {
         con.setRequestProperty("origin", "https://www.gutefrage.net");
         con.setRequestProperty("sec-fetch-dest", "empty");
         con.setRequestProperty("sec-fetch-mode", "cors");
-        con.setRequestProperty("cookie", cookies);
+        con.setRequestProperty("cookie", "gf-li=1; gf-AB-2096-logged-in-ads=0; gf-AB-BIT-2383-push-registrations=0; lastConsentChange=1594585395048; _ga=GA1.2.1155394590.1594585395; _gid=GA1.2.429469856.1594585395; gfAccessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzg4MTY3NCIsInJvbGVzIjoiU3RhbmRhcmQiLCJpc3MiOiJndXRlZnJhZ2UubmV0IiwidXNlckNyZWF0ZWRBdCI6IjE1OTIwOTMxMDgwMDAiLCJ0eXAiOiJhY2Nlc3N0b2tlbiIsImV4cCI6MTU5NDY0NTM4OCwiaWF0IjoxNTk0NjQzNTg4fQ.E7uBNu_dic2MWurGT8RrpA3gZ2j1j_1Y0ZHJu5fevHw; gfRefreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzg4MTY3NCIsInJvbGVzIjoiU3RhbmRhcmQiLCJpc3MiOiJndXRlZnJhZ2UubmV0IiwidXNlckNyZWF0ZWRBdCI6IjE1OTIwOTMxMDgwMDAiLCJ0eXAiOiJyZWZyZXNodG9rZW4iLCJleHAiOjE1OTcyMzU1ODgsImlhdCI6MTU5NDY0MzU4OH0.O20zzpKqoPB6a641cp2vB0aXrnSYGxkJb7bRrZ1hTiU; _gat=1");
         con.setRequestProperty("sec-fetch-site", "same-origin");
         con.setRequestProperty("accept", "*/*");
-        con.setRequestProperty("accept-language", "e,en-US;q=0.9,en;q=0.8,de-DE;q=0.7,ro;q=0.6 ");
-        con.setRequestProperty("cache-control", "no-cache ");
-     //   con.setRequestProperty("content-length", String.valueOf(msg.length()));
-        con.setRequestProperty("content-type", "application/json ");
+        con.setRequestProperty("accept-language", "e,en-US;q=0.9,en;q=0.8,de-DE;q=0.7,ro;q=0.6");
+        con.setRequestProperty("cache-control", "no-cache");
+     con.setRequestProperty("content-length", String.valueOf(msg.length()));
+        con.setRequestProperty("content-type", "application/json");
         con.setRequestProperty("referer", "https://www.gutefrage.net/frage_hinzufuegen");
         con.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
         con.setRequestProperty("x-api-key", "dfdza43a-8560-4641-b316-ff928232734c");
@@ -177,6 +179,7 @@ public class Bot {
             resp += line;
 
         }
+
         System.out.println(resp);
 
 

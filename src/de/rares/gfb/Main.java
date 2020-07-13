@@ -10,11 +10,11 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            Bot b = new Bot("", "");
+            Bot b = new Bot("raresderbares@gmail.com", "rs05082005");
             b.connect();
             b.setCookies();
-            b.postQuestion("Hey Das ist ein Test", "dududadasdsadasd", new String[]{"Leben", "Philosophie"}, new String[]{});
-       //     b.sendAnswer( "Das ist nur ein Test",Service.getID("https://gutefrage.net/frage/werden-die-meisten-menschen-denken-dass-ich-keine-freunde-habe-wenn-ich-taeglich-alleine-in-der-mensa-sitze"));
+         //   b.postQuestion("Hey Das ist ein Test", "", new String[]{"Leben", "Philosophie"}, new String[]{});
+        b.sendAnswer( "Das ist nur ein Test",Service.getID("https://www.gutefrage.net/frage/wie-wird-der-iq-test-standard-gemessen"));
         } catch (IOException e) {
             e.printStackTrace();
         }
