@@ -13,7 +13,7 @@ public class Main {
             Bot b = new Bot("", "");
             b.connect();
             b.setCookies();
-            b.postQuestion("Denkt ihr, dass jeder Mensch einen Freund finden wird", "Frage steht oben", new String[]{"Leben", "Philosophie"}, new String[]{});
+            b.postQuestion("Hey Das ist ein Test", "dududadasdsadasd", new String[]{"Leben", "Philosophie"}, new String[]{});
        //     b.sendAnswer( "Das ist nur ein Test",Service.getID("https://gutefrage.net/frage/werden-die-meisten-menschen-denken-dass-ich-keine-freunde-habe-wenn-ich-taeglich-alleine-in-der-mensa-sitze"));
         } catch (IOException e) {
             e.printStackTrace();
