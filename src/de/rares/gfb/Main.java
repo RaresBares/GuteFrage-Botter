@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            Bot b = new Bot("raresderbares@gmail.com", "rs05082005");
+            Bot b = new Bot("EMAIL", "PASSWORD");
             b.connect();
             b.setCookies();
          //   b.postQuestion("Hey Das ist ein Test", "", new String[]{"Leben", "Philosophie"}, new String[]{});
