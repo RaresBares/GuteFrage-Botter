@@ -9,10 +9,11 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         try {
-            Bot b = new Bot("raresderbares@gmail.com", "rs05082005");
-            b.connect();
-            b.setCookies();
-            b.sendAnswer(97327574);
+            Service.getID("http://gutefrage.net/frage/werden-die-meisten-menschen-denken-dass-ich-keine-freunde-habe-wenn-ich-taeglich-alleine-in-der-mensa-sitze");
+        //    Bot b = new Bot("raresderbares@gmail.com", "rs05082005");
+         //   b.connect();
+          //  b.setCookies();
+          //  b.sendAnswer(97327574);
         } catch (IOException e) {
             e.printStackTrace();
         }
